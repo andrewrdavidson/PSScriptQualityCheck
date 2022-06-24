@@ -65,9 +65,6 @@ foreach ($public in $publicFunctions) {
     $functionProperties = Get-ItemProperty -Path $public
     $parentFolder = Split-Path $functionProperties.DirectoryName -Parent
 
-    # make sure that code passes PSQ check
-    Invoke-PSQualityCheck -File $functionProperties.FullName -ScriptAnalyzerRulesPath $scriptAnalyzerRulesPath
-
     # make sure that code passes it's test
     # find it's relevant test
     $testFileName = '{0}\tests\public\{1}.{2}' -f $parentFolder, $functionProperties.BaseName, 'tests.ps1'
@@ -92,9 +89,6 @@ foreach ($private in $privateFunctions) {
     # Write-Host "Found $public script"
     $functionProperties = Get-ItemProperty -Path $private
     $parentFolder = Split-Path $functionProperties.DirectoryName -Parent
-
-    # make sure that code passes PSQ check
-    Invoke-PSQualityCheck -File $functionProperties.FullName -ScriptAnalyzerRulesPath $scriptAnalyzerRulesPath
 
     # make sure that code passes it's test
     # find it's relevant test
